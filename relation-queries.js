@@ -9,7 +9,7 @@ async function listsWithUsers() {
   return lists.map((list) => list.get({ plain: true }));
 }
 
-listsWithUsers().then((lists) => console.log(lists));
+// listsWithUsers().then((lists) => console.log(lists));
 
 async function getUsers() {
     const allUsers = await user.findAll({
@@ -18,4 +18,11 @@ async function getUsers() {
     return allUsers.map((user) => user.get({ plain: true }));
   }
   
-  getUsers().then((users) => console.log(users));
+//   getUsers().then((users) => console.log(users));
+
+async function getUserWithList(id) {
+    const result = await user.findByPk(id, { include: [todoList] });
+    return result.get({ plain: true });
+  }
+  
+  getUserWithList(1).then(user => console.log("user by id with lists", user));

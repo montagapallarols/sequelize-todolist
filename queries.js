@@ -29,7 +29,7 @@ async function findAllUsers() {
   async function findUserByPk(key){
       try {
         const userByPk = await User.findByPk(key);
-      return userByPk;
+        return userByPk ? userByPk.get({ plain: true }) : "Not found!";
       }  catch(e) {
           console.error(e)
       }  
@@ -46,7 +46,7 @@ async function findAllUsers() {
             phone: 54321,
             password: "test"
         });
-        return newUser;
+        return newUser.get({ plain: true });
       } catch(e) {
           console.error(e)
       }
