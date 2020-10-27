@@ -25,4 +25,15 @@ async function getUserWithList(id) {
     return result.get({ plain: true });
   }
   
-  getUserWithList(1).then(user => console.log("user by id with lists", user));
+//   getUserWithList(1).then(user => console.log("user by id with lists", user));
+
+
+  async function imporantTodos() {
+    const todos = await todoItem.findAll({
+      where: { important: true },
+      include: { model: todoList, attributes: ["name"] }
+    });
+    return todos.map(item => item.get({ plain: true }));
+  }
+  
+  imporantTodos().then(items => console.log("important todoItems", items));
