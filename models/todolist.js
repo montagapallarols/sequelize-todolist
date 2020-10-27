@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       todoList.belongsTo(models.user);
+      todoList.hasMany(models.todoItem);
     }
   };
   todoList.init({
