@@ -7,10 +7,16 @@ module.exports = {
       [
         {
           task: "buy coffee",
-          deadline: "tuesday"
+          deadline: "tuesday",
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ],
-      {}
+      { task: "create database",
+        deadline: "wednesday",
+        createdAt: new Date(),
+        updatedAt: new Date()
+    }
     );
   },
 

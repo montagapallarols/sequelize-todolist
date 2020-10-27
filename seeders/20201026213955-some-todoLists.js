@@ -6,10 +6,16 @@ module.exports = {
       "todoLists",
       [
         {
-          name: "food list"
+          name: "food list",
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ],
-      {}
+      { 
+        name: "code list",
+        createdAt: new Date(),
+        updatedAt: new Date() 
+      }
     );
   },
 
