@@ -36,4 +36,20 @@ async function getUserWithList(id) {
     return todos.map(item => item.get({ plain: true }));
   }
   
-  imporantTodos().then(items => console.log("important todoItems", items));
+//   imporantTodos().then(items => console.log("important todoItems", items));
+
+
+  async function fullUserById(id) {
+    const result = await user.findByPk(id, {
+      include: [
+        {
+          model: todoList,
+          attributes: ["name"],
+          include: { model: todoItem, attributes: ["task"] }
+        }
+      ]
+    });
+    return result.get({ plain: true });
+  }
+  
+  fullUserById(1).then(user => console.log("User with tasks", user));
