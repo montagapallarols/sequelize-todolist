@@ -1,7 +1,6 @@
 {
   "name": "new-sequelize-project",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,5 +12,15 @@
     "pg": "^8.4.2",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/montipallarols/new-sequelize-project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/montipallarols/new-sequelize-project/issues"
+  },
+  "homepage": "https://github.com/montipallarols/new-sequelize-project#readme",
+  "description": ""
 }
