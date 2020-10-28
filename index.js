@@ -26,6 +26,39 @@ app.post("/users", async (req, res, next) => {
     }
   });
 
+
+app.post("/user/:userId/todoLists", async (req, res, next) => {
+    try {
+        const userId = parseInt(req.params.userId)
+        const user = await User.findByPk(userId)
+        if (!user) {
+            res.status(404).send("User not found")
+        } else {
+            const newList = await TodoList.create({userId, ...req.body})
+            res.json(newList)
+        }
+    } catch(e) {
+        next(e)
+    }
+})
+
+
+app.put("/todoLists/:listId", async (req, res, next) => {
+    try {
+      const listId = parseInt(req.params.listId);
+      const listToUpdate = await TodoList.findByPk(listId);
+      if (!listToUpdate) {
+        res.status(404).send("List not found");
+      } else {
+        const updatedList = await listToUpdate.update(req.body);
+        res.json(updatedList);
+      }
+    } catch (e) {
+      next(e);
+    }
+  });
+
+
   
   app.get("/users/:userId", async (req, res, next) => {
       try {
