@@ -157,8 +157,10 @@ app.put("/todoLists/:listId", async (req, res, next) => {
       if (!user) {
         res.status(404).send("User not found");
       } else {
-        user.TodoLists.forEach(async list => await list.destroy());
-        res.status(204).send();
+        const allLists = await TodoList.destroy({ where: { userId: userId } });
+       console.log(allLists);
+
+      res.json(allLists);
       }
     } catch (e) {
       next(e);
