@@ -84,6 +84,39 @@ app.put("/todoLists/:listId", async (req, res, next) => {
       }
   })
 
+  app.get("/users/:userId/lists", async (req, res, next) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const user = await User.findByPk(userId, {
+        include: [TodoList],
+      });
+      if (user) {
+        res.send(user.todoLists);
+      } else {
+        res.status(404).send("User not found");
+      }
+    } catch (e) {
+      next(e);
+    }
+  });
+
+//   Implement the route to create a list for a user on the /users/:userId/lists endpoint.
+  app.post("/users/:userId/lists", async (req, res, next) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const user = await User.findByPk(userId);
+      if (!user) {
+        res.status(404).send("User not found");
+      } else {
+        const newList = await TodoList.create({ userId, ...req.body });
+        res.json(newList);
+      }
+    } catch (e) {
+      next(e);
+    }
+  });
+
+
   app.put("/users/:userId", async (req, res, next) => {
     try {
       const userId = parseInt(req.params.userId);
@@ -99,6 +132,38 @@ app.put("/todoLists/:listId", async (req, res, next) => {
     }
   });
 
+  // Delete a user's list
+  app.delete("/users/:userId/lists/:listId", async (req, res, next) => {
+      try {
+        const listId = parseInt(req.params.listId)
+        const listToDelete = await TodoList.findByPk(listId)
+        if (!listToDelete) {
+            res.status(404).send("List not found")
+        } else {
+            const deletedList = await listToDelete.destroy();
+            res.json(deletedList)
+        }
+      } catch(e) {
+          next(e)
+      }
+  })
+
+
+  // Delete all user's lists
+  app.delete("/users/:userId/lists", async (req, res, next) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const user = await User.findByPk(userId, { include: [TodoList] });
+      if (!user) {
+        res.status(404).send("User not found");
+      } else {
+        user.TodoLists.forEach(async list => await list.destroy());
+        res.status(204).send();
+      }
+    } catch (e) {
+      next(e);
+    }
+  });
 
 
 
