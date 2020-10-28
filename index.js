@@ -3,6 +3,7 @@ const app = express()
 const port = 4000
 
 const User = require("./models").user;
+const TodoList = require("./models").todoList;
 
 app.use(express.json());
 
@@ -38,6 +39,15 @@ app.post("/users", async (req, res, next) => {
 
       } catch(e) {
           next(e);
+      }
+  })
+
+  app.get("/todoLists", async (req, res, next) => {
+      try {
+        const lists = await TodoList.findAll()
+        res.json(lists)
+      } catch(e) {
+          next(e)
       }
   })
 
